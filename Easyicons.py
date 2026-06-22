@@ -1,7 +1,7 @@
 import os
 import re
 
-ROOT = r"/home/arnt/Desktop/IconsAltered"  # <<< ALTERE AQUI
+ROOT = r"C:\Users\ArntV\OneDrive - De Lage Landen International B.V\Desktop\GDS\Interface Essentials"  # <<< ALTERE AQUI
 
 def process_svg(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -9,8 +9,9 @@ def process_svg(path):
 
     # --- PRIMEIRO BLOCO: substituições no arquivo original ---
     content_mod = content.replace(
-        "Streamline Icon: https://streamlinehq.com", "").replace("--Streamline-Core", "").replace("#000000","#006BB2")
-
+        "Streamline Icon: https://streamlinehq.com", "").replace("--Streamline-Core", "").replace("black","#006BB2").replace('width="14" height="14"',"")
+    # último comando: remover bloco <defs>...</defs>
+    content_mod = re.sub(r"<defs>.*?</defs>", "", content_mod, flags=re.DOTALL)
     # Salva alterações no arquivo original
     with open(path, "w", encoding="utf-8") as f:
         f.write(content_mod)
@@ -23,8 +24,8 @@ def process_svg(path):
 
     # Substituir viewBox 14x14 → 20x20
     new_content = new_content.replace(
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"',
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"'
+        'viewBox="0 0 14 14"',
+        'viewBox="0 0 20 20"'
     )
 
     # Substituir <g por <g transform="translate(1 1)"
@@ -54,8 +55,8 @@ def process_svg(path):
 
     # Substituir viewBox 14x14 → 20x20
     new_content = new_content.replace(
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"',
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"'
+        'viewBox="0 0 14 14"',
+        'viewBox="0 0 20 20"'
     )
 
        # Substituir <g por <g transform="translate(1 1)"
@@ -66,8 +67,8 @@ def process_svg(path):
 
      # Substituir 1 por 1.25 em stroke-width"
     new_content = new_content.replace(
-        'stroke-width="1"',
-        'stroke-width="1.25"'
+        'stroke="#006BB2"',
+        'stroke="#006BB2" stroke-width="1.25"'
     )
 
     # Substituir conteúdo do <desc>
@@ -91,8 +92,8 @@ def process_svg(path):
 
     # Substituir viewBox 14x14 → 16x16
     new_content = new_content.replace(
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"',
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"'
+        'viewBox="0 0 14 14"',
+        'viewBox="0 0 16 16"'
     )
 
     # Substituir <g por <g transform="translate(1 1)"
@@ -103,8 +104,8 @@ def process_svg(path):
     
      # Substituir 1 por 1.25 em stroke-width"
     new_content = new_content.replace(
-        'stroke-width="1"',
-        'stroke-width="1.25"'
+        'stroke="#006BB2"',
+        'stroke="#006BB2" stroke-width="1.25"'
     )
 
     # Substituir conteúdo do <desc>
@@ -128,8 +129,8 @@ def process_svg(path):
 
     # Substituir viewBox 14x14 → 16x16
     new_content = new_content.replace(
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"',
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"'
+        'viewBox="0 0 14 14"',
+        'viewBox="0 0 16 16"'
     )
 
     # Substituir <g por <g transform="translate(1 1)"
@@ -159,8 +160,8 @@ def process_svg(path):
 
     # Substituir viewBox 14x14 → 12x12
     new_content = new_content.replace(
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"',
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"'
+        'viewBox="0 0 14 14"',
+        'viewBox="0 0 12 12"'
     )
 
     # Substituir <g por <g transform="translate(1 1)"
@@ -171,8 +172,8 @@ def process_svg(path):
     
      # Substituir 1 por 1.25 em stroke-width"
     new_content = new_content.replace(
-        'stroke-width="1"',
-        'stroke-width="1.25"'
+        'stroke="#006BB2"',
+        'stroke="#006BB2" stroke-width="1.25"'
     )
 
     # Substituir conteúdo do <desc>
@@ -196,8 +197,8 @@ def process_svg(path):
 
     # Substituir viewBox 14x14 → 12x12
     new_content = new_content.replace(
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"',
-        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 12"'
+        'viewBox="0 0 14 14"',
+        'viewBox="0 0 12 12"'
     )
 
     # Substituir <g por <g transform="translate(1 1)"
@@ -219,6 +220,8 @@ def process_svg(path):
     # Salvar novo arquivo
     with open(new_path, "w", encoding="utf-8") as f:
         f.write(new_content)
+    #Exclui arquivo original
+    os.remove(path)
 
 def walk_and_process(root):
     for folder, _, files in os.walk(root):
