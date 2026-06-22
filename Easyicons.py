@@ -1,7 +1,7 @@
 import os
 import re
 
-ROOT = r"C:\caminho\da\pasta"  # <<< ALTERE AQUI
+ROOT = r"/home/arnt/Desktop/IconsAltered"  # <<< ALTERE AQUI
 
 def process_svg(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -35,11 +35,11 @@ def process_svg(path):
 
     # Substituir conteúdo do <desc>
     desc_pattern = r"<desc>.*?</desc>"
-    new_desc = f"<desc>Size= 16px Type: Regular • {name_no_ext} • Icons • Visual Assets • GDS</desc>"
+    new_desc = f"<desc>Size= 20px Type: Regular • {name_no_ext} • Icons • Visual Assets • GDS</desc>"
     new_content = re.sub(desc_pattern, new_desc, new_content, flags=re.DOTALL)
 
     # Nome do novo arquivo
-    new_filename = f"{name_no_ext}.Size=16,Type=Regular.svg"
+    new_filename = f"{name_no_ext}.Size=20,Type=Regular.svg"
     new_path = os.path.join(os.path.dirname(path), new_filename)
 
     # Salvar novo arquivo
