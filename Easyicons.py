@@ -3,16 +3,13 @@ import re
 
 ROOT = r"C:\caminho\da\pasta"  # <<< ALTERE AQUI
 
-def process_svg(path):
+def process_svg16reg(path):
     with open(path, "r", encoding="utf-8") as f:
         content = f.read()
 
     # --- PRIMEIRO BLOCO: substituições no arquivo original ---
     content_mod = content.replace(
-        "Streamline Icon: https://streamlinehq.com", ""
-    ).replace(
-        "--Streamline-Core", ""
-    )
+        "Streamline Icon: https://streamlinehq.com", "").replace("--Streamline-Core", "")
 
     # Salva alterações no arquivo original
     with open(path, "w", encoding="utf-8") as f:
@@ -56,7 +53,8 @@ def walk_and_process(root):
             if file.lower().endswith(".svg"):
                 full_path = os.path.join(folder, file)
                 print(f"Processando: {full_path}")
-                process_svg(full_path)
+                process_svg16reg(full_path)
+                process_svg20reg(full_path)
 
 
 walk_and_process(ROOT)
