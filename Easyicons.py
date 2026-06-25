@@ -1,7 +1,7 @@
 import os
 import re
 
-ROOT = r"C:\Users\ArntV\OneDrive - De Lage Landen International B.V\Desktop\GDS\Interface Essentials"  # <<< ALTERE AQUI
+ROOT = r"C:\Users\ArntV\OneDrive - De Lage Landen International B.V\Desktop\GDS\Interface Essentials\Alerts"  # <<< ALTERE AQUI
 
 def process_svg(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -12,6 +12,27 @@ def process_svg(path):
         "Streamline Icon: https://streamlinehq.com", "").replace("--Streamline-Core", "").replace("black","#006BB2").replace('width="14" height="14"',"")
     # último comando: remover bloco <defs>...</defs>
     content_mod = re.sub(r"<defs>.*?</defs>", "", content_mod, flags=re.DOTALL)
+
+    match_svg = re.search(r"<svg[^>]*>", content_mod)
+    # Encontrar a tag <svg ...>
+
+    if match_svg:
+    # Conteúdo logo após <svg>
+        after_svg = content_mod[match_svg.end():].lstrip()
+
+        # Se NÃO começar com <g>, inserir <g> e </g>
+        if not after_svg.startswith("<g"):
+            # Inserir <g> após <svg>
+            content_mod = (
+                content_mod[:match_svg.end()] +
+                "\n<g>" +
+                content_mod[match_svg.end():]
+            )
+
+            # Inserir </g> antes de </svg>
+            content_mod = re.sub(r"</svg>", "</g>\n</svg>", content_mod, count=1)
+
+
     # Salva alterações no arquivo original
     with open(path, "w", encoding="utf-8") as f:
         f.write(content_mod)
